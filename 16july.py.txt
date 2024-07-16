@@ -1,0 +1,13 @@
+class Solution:
+    def printString(self, s, ch, count):
+        occ = 0
+
+        for i in range(len(s)):
+            if s[i] == ch:
+                occ += 1
+            if occ == count:
+                if i + 1 < len(s):
+                    return s[i + 1:]
+                else:
+                    return ""
+        return ""
