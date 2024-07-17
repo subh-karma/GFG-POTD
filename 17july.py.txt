@@ -1,0 +1,40 @@
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+class Solution:
+    def createTree(self, parent):
+        n = len(parent)
+        created = [None] * n
+        root = None
+
+        for i in range(n):
+            if created[i] is None:
+                self.createNode(parent, i, created)
+
+        for i in range(n):
+            if parent[i] == -1:
+                root = created[i]
+                break
+
+        return root
+
+    def createNode(self, parent, i, created):
+        if created[i] is not None:
+            return
+
+        created[i] = Node(i)
+
+        if parent[i] == -1:
+            return
+
+        if created[parent[i]] is None:
+            self.createNode(parent, parent[i], created)
+
+        p = created[parent[i]]
+        if p.left is None:
+            p.left = created[i]
+        else:
+            p.right = created[i]
