@@ -1,0 +1,22 @@
+class Info:
+    def __init__(self, is_bst, size, min_val, max_val):
+        self.is_bst = is_bst
+        self.size = size
+        self.min_val = min_val
+        self.max_val = max_val
+
+class Solution:
+    def largestBSTHelper(self, root):
+        if root is None:
+            return Info(True, 0, float('inf'), float('-inf'))
+        
+        left_info = self.largestBSTHelper(root.left)
+        right_info = self.largestBSTHelper(root.right)
+        
+        if left_info.is_bst and right_info.is_bst and root.data > left_info.max_val and root.data < right_info.min_val:
+            return Info(True, 1 + left_info.size + right_info.size, min(root.data, left_info.min_val), max(root.data, right_info.max_val))
+        else:
+            return Info(False, max(left_info.size, right_info.size), float('inf'), float('-inf'))
+    
+    def largestBst(self, root):
+        return self.largestBSTHelper(root).size
