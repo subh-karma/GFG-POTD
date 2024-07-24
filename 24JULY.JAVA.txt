@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isBST(Node node) {
+        return isBSTUtil(node, null, null);
+    }
+
+    private boolean isBSTUtil(Node node, Node minNode, Node maxNode) {
+        if (node == null) {
+            return true;
+        }
+
+        if ((minNode != null && node.data <= minNode.data) || (maxNode != null && node.data >= maxNode.data)) {
+            return false;
+        }
+
+        return isBSTUtil(node.left, minNode, node) && isBSTUtil(node.right, node, maxNode);
+    }
+}
