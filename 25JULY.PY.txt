@@ -1,0 +1,16 @@
+class Solution:
+    def sortedArrayToBST(self, nums):
+        return self.sortedArrayToBSTUtil(nums, 0, len(nums) - 1)
+
+    def sortedArrayToBSTUtil(self, nums, left, right):
+        if left > right:
+            return None
+
+        mid = left + (right - left) // 2
+
+        node = Node(nums[mid])
+
+        node.left = self.sortedArrayToBSTUtil(nums, left, mid - 1)
+        node.right = self.sortedArrayToBSTUtil(nums, mid + 1, right)
+
+        return node
