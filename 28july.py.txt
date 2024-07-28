@@ -1,0 +1,11 @@
+class Solution:
+    def removeDups(self, str):
+        fre = [0] * 26 
+        result = [] 
+        
+        for c in str:
+            if fre[ord(c) - ord('a')] == 0:
+                result.append(c) 
+                fre[ord(c) - ord('a')] = 1 
+        
+        return ''.join(result)
