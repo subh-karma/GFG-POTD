@@ -1,25 +1,21 @@
+#Back-end complete function Template for Python 3
+
 class Solution:
-    def maximumCount(self, nums):
-        n = len(nums)
-        left, right = 0, n - 1
+    def minCostClimbingStairs(self, cost):
+        n = len(cost)
+        cost.append(0)
+        dp = [-1] * (n+1)
 
-        # Find the index of the first positive number
-        while left <= right:
-            mid = left + (right - left) // 2
-            if nums[mid] > 0:
-                right = mid - 1
-            else:
-                left = mid + 1
-        # Now, 'left' is the index of the first positive number
-        positive_count = n - left
+        def recursive(i):
+            if i < 0:  # If we go before the first step, cost is 0
+                return 0
+            if i == 0 or i == 1:
+                return cost[i]
+            if dp[i] != -1:
+                return dp[i]
+            dp[i] = min(recursive(i-1), recursive(i-2)) + cost[i]
+            return dp[i]
 
-        # Find the last negative number using binary search
-        left, right = 0, n - 1
-        while left <= right:
-            mid = left + (right - left) // 2
-            if nums[mid] < 0:
-                left = mid + 1  # Move right
-            else:
-                right = mid - 1  # Move left
-        # Now, 'right' is the index of the last negative number
-        negative_count = right + 1
+        return recursive(n)
+        
+
